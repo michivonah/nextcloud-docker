@@ -28,7 +28,12 @@ RUN rm nextcloud.zip
 WORKDIR /etc/apache2/sites-available/
 RUN sed -i "s#var/www/html#var/www/html/nextcloud#g" 000-default.conf
 
-# Run script
+# Set enviromental variables
+ENV MEMORY_LIMIT 512M
+ENV MAX_FILE_SIZE 10G
+ENV PHP_TIMEZONE Europe/Zurich
+
+# Copy script
 RUN mkdir app
 WORKDIR /app/
 COPY . .
