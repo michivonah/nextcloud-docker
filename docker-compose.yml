@@ -1,0 +1,30 @@
+version: '3.3'
+services:
+    app:
+        container_name: nextcloud
+        ports:
+            - '8080:80'
+        volumes:
+            - '/path/to/directory:/var/www/html'
+        restart: unless-stopped
+        environment:
+            - MEMORY_LIMIT=512M
+        networks:
+            - nextcloudNET
+        image: michivonah/nextcloud
+    db:
+        container_name: mariadb
+        volumes:
+            - '/path/to/database:/var/lib/mysql'
+        restart: unless-stopped
+        environment:
+            - MARIADB_ROOT_PASSWORD=helpdesk
+            - MARIADB_DATABASE=helpdesk
+            - MARIADB_USER=helpdesk
+            - MARIADB_PASSWORD=helpdesk
+        networks:
+            - nextcloudNET
+        image: mariadb
+networks:
+  nextcloudNET:
+    name: nextcloudNET
