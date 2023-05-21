@@ -8,8 +8,6 @@ RUN apt-get install mc htop wget curl unzip systemctl apt-utils -y
 
 # Install webserver
 RUN apt-get install apache2 -y
-RUN systemctl enable apache2
-RUN systemctl start apache2
 
 # Install php8.2 with required modules
 RUN apt-get install lsb-release apt-transport-https ca-certificates software-properties-common -y
@@ -27,6 +25,8 @@ RUN rm nextcloud.zip
 # Change apache config
 WORKDIR /etc/apache2/sites-available/
 RUN sed -i "s#var/www/html#var/www/html/nextcloud#g" 000-default.conf
+RUN systemctl enable apache2
+RUN systemctl start apache2
 
 # Set enviromental variables
 ENV MEMORY_LIMIT 512M
