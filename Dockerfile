@@ -4,7 +4,7 @@ FROM debian:latest
 RUN apt-get update
 
 # Install required software
-RUN apt-get install mc htop wget curl unzip systemctl -y
+RUN apt-get install mc htop wget curl unzip systemctl apt-utils -y
 
 # Install webserver
 RUN apt-get install apache2 -y
@@ -24,15 +24,14 @@ RUN wget -O nextcloud.zip https://download.nextcloud.com/server/releases/latest.
 RUN unzip nextcloud.zip
 RUN rm nextcloud.zip
 
+# Change apache config
+WORKDIR /etc/apache2/sites-available/
+RUN sed -i "s#var/www/html#var/www/html/nextcloud#g" 000-default.conf
+
 # Run script
 RUN mkdir app
 WORKDIR /app/
 COPY . .
-#RUN sh entrypoint.sh
-
-# Restart apache2
-RUN systemctl restart apache2
 
 # Run container
-#CMD ["sh","entrypoint.sh"]
-CMD ["sh"]
+CMD ["sh","entrypoint.sh"]

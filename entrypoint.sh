@@ -1,14 +1,23 @@
 #!/bin/bash
 
-# configure apache
-cd /etc/apache2/sites-available/
-sed -i "s#var/www/html#var/www/html/nextcloud#g" 000-default.conf
-systemctl restart apache2
-
 # change PHP configuration
 cd /etc/php/8.2/apache2/
-#echo 'extension=mysql.so' >> php.ini
-#echo 'extension=gd.so' >> php.ini
+
 sed -i "s#memory_limit = 128M#memory_limit = 512M#g" php.ini
-sed -i "s#post_max_size = 8M#post_max_size = 10G#g" php.ini
 sed -i "s#upload_max_filesize = 2M#upload_max_filesize = 10G#g" php.ini
+sed -i "s#post_max_size = 8M#post_max_size = 10G#g" php.ini
+sed -i "s#max_execution_time = 30#max_execution_time = 300#g" php.ini
+sed -i "s#;date.timezone =#date.timezone = Europe/Zurich#g" php.ini
+sed -i "s#output_buffering = 4096#output_buffering = Off#g" php.ini
+sed -i "s#;zend_extension=opcache#zend_extension=opcache#g" php.ini
+
+echo '; OPCACHE' >> php.ini
+echo 'opcache.enable = 1' >> php.ini
+echo 'opcache.interned_strings_buffer = 8' >> php.ini
+echo 'opcache.max_accelerated_files = 10000' >> php.ini
+echo 'opcache.memory_consumption = 512' >> php.ini
+echo 'opcache.save_comments = 1' >> php.ini
+echo 'opcache.revalidate_freq = 1' >> php.ini
+
+# Restart webserver
+systemctl restart apache2
