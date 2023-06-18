@@ -20,4 +20,5 @@ echo 'opcache.save_comments = 1' >> php.ini
 echo 'opcache.revalidate_freq = 1' >> php.ini
 
 # Restart webserver
-systemctl restart apache2
+#systemctl restart apache2
+/etc/init.d/apache2 restart
