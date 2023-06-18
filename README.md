@@ -28,7 +28,7 @@ You're done! Now visit http://localhost:8080 in your browser and configure nextc
 ## Docker compose
 Copy following yml into a file called ```docker-compose.yml```
 ```yml
-version: '3.3'
+version: '3.9'
 services:
     app:
         container_name: nextcloud
@@ -48,10 +48,10 @@ services:
             - '/path/to/database:/var/lib/mysql'
         restart: unless-stopped
         environment:
-            - MARIADB_ROOT_PASSWORD=helpdesk
-            - MARIADB_DATABASE=helpdesk
-            - MARIADB_USER=helpdesk
-            - MARIADB_PASSWORD=helpdesk
+            - MARIADB_ROOT_PASSWORD=nextcloud
+            - MARIADB_DATABASE=nextcloud
+            - MARIADB_USER=nextcloud
+            - MARIADB_PASSWORD=nextcloud
         networks:
             - nextcloudNET
         image: mariadb
