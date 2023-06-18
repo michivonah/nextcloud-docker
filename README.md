@@ -35,7 +35,7 @@ services:
         ports:
             - '8080:80'
         volumes:
-            - '/path/to/directory:/var/www/html'
+            - './data:/var/www/html'
         restart: unless-stopped
         environment:
             - MEMORY_LIMIT=512M
@@ -45,7 +45,7 @@ services:
     db:
         container_name: mariadb
         volumes:
-            - '/path/to/database:/var/lib/mysql'
+            - './db:/var/lib/mysql'
         restart: unless-stopped
         environment:
             - MARIADB_ROOT_PASSWORD=nextcloud
