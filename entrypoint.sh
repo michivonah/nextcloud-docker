@@ -22,3 +22,5 @@ echo 'opcache.revalidate_freq = 1' >> php.ini
 # Restart webserver
 #systemctl restart apache2
 /etc/init.d/apache2 restart
+
+sh

@@ -4,7 +4,7 @@ FROM debian:latest
 RUN apt-get update
 
 # Install required software
-RUN apt-get install mc htop wget curl unzip systemctl apt-utils -y
+RUN apt-get install mc htop wget curl unzip systemctl apt-utils iproute2 -y
 
 # Install webserver
 RUN apt-get install apache2 -y
@@ -19,7 +19,7 @@ RUN apt-get update
 RUN apt-get install php8.2 libapache2-mod-php8.2 php8.2-curl php8.2-cli php8.2-mysql php8.2-gd php8.2-common php8.2-xml php8.2-intl php8.2-imagick php8.2-dev php8.2-common php8.2-mbstring php8.2-zip php8.2-soap php8.2-bz2 php8.2-bcmath php8.2-gmp php8.2-apcu libmagickcore-dev -y
 
 # Download nextcloud
-RUN cd /var/www/html/
+WORKDIR /var/www/html/
 RUN wget -O nextcloud.zip https://download.nextcloud.com/server/releases/latest.zip
 RUN unzip nextcloud.zip
 RUN rm nextcloud.zip
@@ -27,7 +27,7 @@ RUN chown -R www-data:www-data nextcloud
 RUN chmod -R 755 nextcloud
 
 # Change apache config
-RUN cd /etc/apache2/sites-available/
+WORKDIR /etc/apache2/sites-available/
 RUN sed -i "s#var/www/html#var/www/html/nextcloud#g" 000-default.conf
 RUN /etc/init.d/apache2 restart
 
