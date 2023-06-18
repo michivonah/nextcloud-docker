@@ -8,8 +8,8 @@ RUN apt-get install mc htop wget curl unzip systemctl apt-utils -y
 
 # Install webserver
 RUN apt-get install apache2 -y
-RUN systemctl start apache2
 RUN systemctl enable apache2
+RUN systemctl start apache2
 
 # Install php8.2 with required modules
 RUN apt-get install lsb-release apt-transport-https ca-certificates software-properties-common -y
@@ -42,4 +42,4 @@ WORKDIR /app/
 COPY . .
 
 # Run container
-CMD ["sh","entrypoint.sh"]
+ENTRYPOINT ["sh","entrypoint.sh"]
