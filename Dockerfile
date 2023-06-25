@@ -35,6 +35,7 @@ RUN /etc/init.d/apache2 restart
 ENV MEMORY_LIMIT 512M
 ENV MAX_FILE_SIZE 10G
 ENV PHP_TIMEZONE Europe/Zurich
+ENV BASE_URL example.com
 
 # Copy script
 RUN mkdir app

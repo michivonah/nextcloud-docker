@@ -28,7 +28,7 @@ You're done! Now visit http://localhost:8080 in your browser and configure nextc
 ## Docker compose
 Copy following yml into a file called ```docker-compose.yml```
 ```yml
-version: '3.9'
+version: '3.3'
 services:
     app:
         container_name: nextcloud
@@ -41,6 +41,8 @@ services:
             - MEMORY_LIMIT=512M
         networks:
             - nextcloudNET
+        tty: true
+        stdin_open: true
         image: michivonah/nextcloud
     db:
         container_name: mariadb
@@ -57,7 +59,7 @@ services:
         image: mariadb
 networks:
   nextcloudNET:
-    name: nextcloudNET
+
 ```
 
 Run following command to start up the containers

@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# change webserver configuration
+cd /etc/apache2
+echo 'ServerName "'"$BASE_URL"'"' >> apache2.conf
+
 # change PHP configuration
 cd /etc/php/8.2/apache2/
 
