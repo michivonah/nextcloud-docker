@@ -42,5 +42,10 @@ RUN mkdir app
 WORKDIR /app/
 COPY . .
 
+# Create data location
+RUN mkdir /app/nextcloud
+RUN chown -R www-data:www-data /app/nextcloud
+RUN chmod -R 755 /app/nextcloud
+
 # Run container
 ENTRYPOINT ["sh","entrypoint.sh"]

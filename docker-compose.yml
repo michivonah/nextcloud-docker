@@ -5,7 +5,7 @@ services:
         ports:
             - '8080:80'
         volumes:
-            - './data:/var/www/html'
+            - './data:/app/data/'
         restart: unless-stopped
         environment:
             - MEMORY_LIMIT=512M

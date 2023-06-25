@@ -1,0 +1,3 @@
+Aktuelles Problem:
+- Daten sollte nicht im Webserver liegen, damit die Peristenz gewährleistet werdne kann
+- Funktioniert irgendiwe aber noch nicht
