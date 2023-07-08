@@ -34,7 +34,7 @@ RUN chmod -R 755 nextcloud
 WORKDIR /etc/apache2/sites-available/
 COPY apache-conf.conf .
 RUN a2ensite apache-conf.conf
-RUN systemctl restart apache2
+RUN /etc/init.d/apache2 restart
 
 # Set enviromental variables
 ENV MEMORY_LIMIT 512M
@@ -45,12 +45,10 @@ ENV BASE_URL example.com
 # Copy script
 RUN mkdir app
 WORKDIR /app/
-COPY . .
+COPY entrypoint.sh .
 
 # Create data location
 RUN mkdir data
-RUN chown -R www-data:www-data data
-RUN chmod -R 755 data
 
 # Run container
 ENTRYPOINT ["sh","entrypoint.sh"]
