@@ -9,6 +9,7 @@ services:
         restart: unless-stopped
         environment:
             - MEMORY_LIMIT=512M
+            - BASE_URL=example.com
         networks:
             - nextcloudNET
         tty: true

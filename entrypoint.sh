@@ -1,8 +1,11 @@
 #!/bin/bash
 
 # change webserver configuration
-cd /etc/apache2
-echo 'ServerName "'"$BASE_URL"'"' >> apache2.conf
+#cd /etc/apache2
+#echo 'ServerName "'"$BASE_URL"'"' >> apache2.conf
+cd /etc/apache2/sites-available/
+sed -i 's#YOURDOMAIN#"'"$BASE_URL"'"#g' apache-conf.conf
+systemctl restart apache2
 
 # change PHP configuration
 cd /etc/php/8.2/apache2/
