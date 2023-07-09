@@ -17,9 +17,10 @@ chmod -R 755 data
 
 # change webserver configuration
 cd /etc/apache2/sites-available/
-sed -i 's#YOURDOMAIN#"'"$BASE_URL"'"#g' apache-conf.conf
+sed -i 's#YOURDOMAIN#'$BASE_URL'#g' apache-conf.conf
 a2ensite apache-conf.conf
-systemctl restart apache2
+service apache2 reload
+#systemctl restart apache2
 
 # change PHP configuration
 cd /etc/php/8.2/apache2/
