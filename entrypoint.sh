@@ -10,11 +10,6 @@ rm nextcloud.zip
 chown -R www-data:www-data nextcloud
 chmod -R 755 nextcloud
 
-# set privileges for data folder
-cd /app/
-chown -R www-data:www-data data
-chmod -R 755 data
-
 # change webserver configuration
 cd /etc/apache2
 echo 'ServerName "'"$BASE_URL"'"' >> apache2.conf
