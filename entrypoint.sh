@@ -1,15 +1,24 @@
 #!/bin/bash
 
+# download nextcloud
+cd /var/www/
+mkdir nextcloud
+cd /var/www/nextcloud/
+wget -O nextcloud.zip https://download.nextcloud.com/server/releases/latest.zip
+unzip nextcloud.zip
+rm nextcloud.zip
+chown -R www-data:www-data nextcloud
+chmod -R 755 nextcloud
+
 # set privileges for data folder
 cd /app/
 chown -R www-data:www-data data
 chmod -R 755 data
 
 # change webserver configuration
-#cd /etc/apache2
-#echo 'ServerName "'"$BASE_URL"'"' >> apache2.conf
 cd /etc/apache2/sites-available/
 sed -i 's#YOURDOMAIN#"'"$BASE_URL"'"#g' apache-conf.conf
+a2ensite apache-conf.conf
 systemctl restart apache2
 
 # change PHP configuration
@@ -23,13 +32,12 @@ sed -i 's#;date.timezone =#date.timezone = "'"$PHP_TIMEZONE"'"#g' php.ini
 sed -i "s#output_buffering = 4096#output_buffering = Off#g" php.ini
 sed -i "s#;zend_extension=opcache#zend_extension=opcache#g" php.ini
 
-echo '; OPCACHE' >> php.ini
-echo 'opcache.enable = 1' >> php.ini
-echo 'opcache.interned_strings_buffer = 8' >> php.ini
-echo 'opcache.max_accelerated_files = 10000' >> php.ini
-echo 'opcache.memory_consumption = 512' >> php.ini
-echo 'opcache.save_comments = 1' >> php.ini
-echo 'opcache.revalidate_freq = 1' >> php.ini
+sed -i "s#;opcache.enable=1#opcache.enable = 1#g" php.ini
+sed -i "s#;opcache.interned_strings_buffer=8#opcache.interned_strings_buffer = 8#g" php.ini
+sed -i "s#;opcache.max_accelerated_files=10000#opcache.max_accelerated_files = 10000#g" php.ini
+sed -i "s#;opcache.memory_consumption=128#opcache.memory_consumption = 512#g" php.ini
+sed -i "s#;opcache.save_comments=1#opcache.save_comments = 1#g" php.ini
+sed -i "s#;opcache.revalidate_freq=2#opcache.revalidate_freq = 1#g" php.ini
 
 # Restart webserver
 #systemctl restart apache2
