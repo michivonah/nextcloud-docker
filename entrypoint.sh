@@ -12,7 +12,7 @@ chmod -R 755 nextcloud
 
 # change webserver configuration
 cd /etc/apache2
-echo 'ServerName "'"$BASE_URL"'"' >> apache2.conf
+echo 'ServerName '$BASE_URL >> apache2.conf
 cd /etc/apache2/sites-available/
 sed -i 's#YOURDOMAIN#'$BASE_URL'#g' apache-conf.conf
 a2ensite apache-conf.conf
