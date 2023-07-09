@@ -16,6 +16,8 @@ chown -R www-data:www-data data
 chmod -R 755 data
 
 # change webserver configuration
+cd /etc/apache2
+echo 'ServerName "'"$BASE_URL"'"' >> apache2.conf
 cd /etc/apache2/sites-available/
 sed -i 's#YOURDOMAIN#'$BASE_URL'#g' apache-conf.conf
 a2ensite apache-conf.conf
@@ -43,5 +45,19 @@ sed -i "s#;opcache.revalidate_freq=2#opcache.revalidate_freq = 1#g" php.ini
 # Restart webserver
 #systemctl restart apache2
 /etc/init.d/apache2 restart
+
+# Info for user
+echo "--------------------------------------------------------------"
+echo "--------------------------------------------------------------"
+echo "------------------- NEXTCLOUD DOCKER -------------------------"
+echo "--------------------------------------------------------------"
+echo "--------------------------------------------------------------"
+echo "Go to http://"$BASE_URL" in your browser to finish the setup of your nextcloud."
+echo "Leave the data directorys as default"
+echo "Thanks for using this docker image for hosting your own nextcloud :D"
+echo "--------------------------------------------------------------"
+echo "--------------------------------------------------------------"
+echo "--------------------------------------------------------------"
+echo "--------------------------------------------------------------"
 
 sh
